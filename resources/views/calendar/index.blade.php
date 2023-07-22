@@ -151,45 +151,6 @@
         })
     });
     </script> --}}
-    <script>
-        
-     $(document).ready(function(){
-        var  reservations = @json($events);
-        $('#calendar').fullCalendar({
-            header:{
-                left:'prev,next today ',
-                center:'title',
-                right:'month,agendaWeek,agendaDay'
-                   
-            },
-            events : reservations,
-            selectable : true,
-            selectHelper: true,
-            select: function(start,end,allDays){
-              $('#start_time').val(moment(start).format('YYYY-MM-DDTHH:mm:ss'));
-            $('#end_time').val(moment(end).format('YYYY-MM-DDTHH:mm:ss'));
-            $('#date').val(moment(start).format('YYYY-MM-DD'));
-                $('#bookingModal').modal('toggle');
-                $('#saveBtn').click(function() {
-                        var title = $('#title').val();
-                       
-                        var start_date = moment(start).format('YYYY-MM-DD');
-                        var end_date = moment(end).format('YYYY-MM-DD');
-                        console.log(start_date);
-                        // $('#start_time').val();
-                        // var end_time = $('#end_time').val();
-                        // var date = $('#date').val();
-                        // var effectif = $('#effectif').val();
-                        // var salle_id = $('#salle_id').val();
-                    });
-            }
-
-        })
-
-     });
-
-    </script>
-
  </body>
  
 </html>

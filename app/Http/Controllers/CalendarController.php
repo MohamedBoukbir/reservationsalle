@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CalendarController extends Controller
 {
-    public function index(){
-  $events = array();
+    public function index()
+    {
+        $events = array();
         $reservations = Reservation::all();
         foreach ($reservations as $reservation) {
             $events[] = [
@@ -17,7 +18,6 @@ class UserController extends Controller
                 'end' => $reservation->end_time,
             ];
         }
-
-        return view('user.dashboard-user', ['events' => $events]);
+        return view('calendar.index', ['events' => $events]);
     }
 }

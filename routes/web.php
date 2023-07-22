@@ -53,6 +53,8 @@ Route::middleware('auth','role:user')->group(function () {
  //////////////// etudiant //////////////////////////
  });
  // end User /// / / // / // / // / // / // / // / // / //
+//  Route::get('calendar/index',[AdminController::class,'index'])->name('calendar.index');
+// Route::post('calendar',[AdminController::class,'store'])->name('calendar.store');
  
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
