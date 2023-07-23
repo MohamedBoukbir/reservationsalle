@@ -16,8 +16,13 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('effectif');
+            $table->string('salle_id');
             $table->datetime('start_time'); 
+            $table->date('date'); 
             $table->datetime('end_time'); 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

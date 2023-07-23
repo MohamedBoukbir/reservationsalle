@@ -28,20 +28,6 @@ Route::get('/dashboard', [DashbordController::class,'logincontrole'])->middlewar
 // Admin // / nf// ff//fv/vfv/vff///
    Route::middleware('auth','role:admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class,'index'])->name('admin');
-
-    // Route::get('/prof/student/index', [ProfController::class,'indexStudent'])->name('students.index');
-
-    // // add cours and Etudiant
-    // Route::post('/add/etudiant', [ProfController::class,'addetudiant'])->name('etudiant.add');
-    // Route::post('/add/cours', [ProfController::class,'addcours'])->name('cours.add');
-    // // update cours and Etudiant
-    // Route::post('update/etudiant/{etudiant}', [ProfController::class, 'updateetudiant'])->name('etudiant.update');
-    // Route::post('update/cours/{cours}', [ProfController::class, 'updatecours'])->name('cours.update');
-    // // delete cours and Etudiant
-    // Route::delete('delete/cours/{cours}', [ProfController::class,'destroyCours'])->name('cours.destroye');
-    // Route::delete('delete/etudiant/{etudiant}', [ProfController::class,'destroyEtudiant'])->name('etudiant.destroye');
-     //////////////// comment //////////////////////////
-
 });
 // end Admin // / nf// ff//fv/vfv/vff///
 
@@ -50,6 +36,12 @@ Route::get('/dashboard', [DashbordController::class,'logincontrole'])->middlewar
 Route::middleware('auth','role:user')->group(function () {
     //////////////// etudiant /////////////////////////
  Route::get('/user/dashboard', [UserController::class,'index'])->name('user');
+ Route::post('/reservation/user',[UserController::class,'store'])->name('reservation.store');
+//  Route::delete('/reservation/destroy/{id}',[UserController::class,'destroy'])->name('reservation.destroy');
+ Route::get('/All/reservation', [UserController::class,'allreservation'])->name('all.reservation');
+ Route::get('/My/reservation', [UserController::class,'myreservation'])->name('my.reservation');
+ Route::delete('/reservation/destroy/{id}', [UserController::class,'destroyreservation'])->name('reservation.destroy');
+ Route::post('/reservation/update/{id}',[UserController::class,'update'])->name('reservation.update');
  //////////////// etudiant //////////////////////////
  });
  // end User /// / / // / // / // / // / // / // / // / //
