@@ -68,18 +68,12 @@
                 <ul class="navbar-nav active" aria-current="true">
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-2">
-                            <div class="fw-bold"><a href="{{ route('user') }}" style="text-decoration: none;">Reservation</a></div>
+                            <div class="fw-bold"><a href="{{ route('admin') }}" style="text-decoration: none;">Reservation</a></div>
                             {{-- <a class="nav-link" href="#">Cours</a> --}}
                         </div>
     
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-start ms-5">
-                        <div class="ms-2 me-2">
-                            <div class="fw-bold"><a href="{{route('my.reservation')}}" style="text-decoration: none;">
-                                    Mes Reservation</a></div>
-                        </div>
-                        <span class="badge bg-primary rounded-pill">{{$mesresrvationCount}}</span>
-                    </li>
+                
                 </ul>
             </div>
             <div class=" justify-content-end" id="navbarNav">

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservation;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+use App\Models\Reservation;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 class UserController extends Controller
 {
     public function index(){
@@ -24,7 +27,7 @@ class UserController extends Controller
                 'titlee'=>$reservation->title,
             ];
         }
-        $allreservations=Reservation::orderBy('id', 'desc')->paginate("");
+        $allreservations=Reservation::where('start_time', '>', Carbon::now())->get();
         $allresrvationCount=count($allreservations);
         $mesreservations=Reservation::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->paginate("");
         $mesresrvationCount=count($mesreservations);
@@ -131,7 +134,7 @@ $reservations = Reservation::where('salle_id', $request->salle_id)
     }
 
     public function myreservation(){
-        $allresrvation=Reservation::orderBy('id', 'desc')->paginate("");
+        $allresrvation=Reservation::where('start_time', '>', Carbon::now())->get();
         $allresrvationCount=count($allresrvation);
         $reservations=Reservation::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->paginate("");
         return view('user.MseResrvation',compact('reservations','allresrvationCount'));
@@ -143,5 +146,50 @@ $reservations = Reservation::where('salle_id', $request->salle_id)
             return redirect()->back()->with('success', 'reservation a été bien supprimer !!');
         }
         return redirect()->back()->with('erreur', 'tu ne peux pas supprimer cette réservation puisque il été dans le temps actuelle!!');
+    }
+    public function profile(){
+        $allreservations=Reservation::where('start_time', '>', Carbon::now())->get();
+        $allresrvationCount=count($allreservations);
+        $mesreservations=Reservation::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->paginate("");
+        $mesresrvationCount=count($mesreservations);
+        return view('user.profile',compact('allresrvationCount','mesresrvationCount'));
+    }
+    public function updateprofile(Request $request,$id){
+        $request->validate([
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+   
+     // Verify the current password
+     
+//    dd($id);
+      // Update the password
+         $user = User::find($id);
+         if($request->current_password && $request->password){
+            $request->validate([
+                'current_password' => 'required',
+                'password' => 'required|min:6|confirmed',
+            ]);
+            if (!Hash::check($request->current_password, $user->password)) {
+                return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);
+            }
+            $user->password = Hash::make($request->password);
+        }
+            if($request->image){
+                $request->validate([
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+                ]);
+                $imagePath =$request->image->store('images', 'public');
+                // $candidat->image = $request->image;
+                $user->image = $imagePath;
+            }
+   
+            $user->address = $request->address;
+            // $user->country = $request->country;
+            $user->phone = $request->phone;
+            $user->save();
+        return redirect()->route('user')->with('success', 'your profile is update !!');
+        dd($request);
+
     }
 }

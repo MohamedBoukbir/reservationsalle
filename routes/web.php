@@ -28,13 +28,16 @@ Route::get('/dashboard', [DashbordController::class,'logincontrole'])->middlewar
 // Admin // / nf// ff//fv/vfv/vff///
    Route::middleware('auth','role:admin')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class,'index'])->name('admin');
+    Route::get('/profile/Admin', [AdminController::class,'profile'])->name('admin.profile');
+    Route::post('/profile/update/Admin/{id}', [AdminController::class,'updateprofile'])->name('admin.updateprofile');
+    Route::get('/All/reservation/admin', [AdminController::class,'allreservation'])->name('admin.all.reservation');
 });
 // end Admin // / nf// ff//fv/vfv/vff///
 
 // User /// / / // / // / // / // / // / // / // / //
 
 Route::middleware('auth','role:user')->group(function () {
-    //////////////// etudiant /////////////////////////
+ 
  Route::get('/user/dashboard', [UserController::class,'index'])->name('user');
  Route::post('/reservation/user',[UserController::class,'store'])->name('reservation.store');
 //  Route::delete('/reservation/destroy/{id}',[UserController::class,'destroy'])->name('reservation.destroy');
@@ -42,16 +45,17 @@ Route::middleware('auth','role:user')->group(function () {
  Route::get('/My/reservation', [UserController::class,'myreservation'])->name('my.reservation');
  Route::delete('/reservation/destroy/{id}', [UserController::class,'destroyreservation'])->name('reservation.destroy');
  Route::post('/reservation/update/{id}',[UserController::class,'update'])->name('reservation.update');
- //////////////// etudiant //////////////////////////
+ Route::get('/profile/user', [UserController::class,'profile'])->name('user.profile');
+ Route::post('/profile/update/user/{id}', [UserController::class,'updateprofile'])->name('user.updateprofile');
  });
  // end User /// / / // / // / // / // / // / // / // / //
 //  Route::get('calendar/index',[AdminController::class,'index'])->name('calendar.index');
 // Route::post('calendar',[AdminController::class,'store'])->name('calendar.store');
  
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';

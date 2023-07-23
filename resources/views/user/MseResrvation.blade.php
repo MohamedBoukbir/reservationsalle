@@ -10,15 +10,15 @@
     {{-- BOOTSTRAP --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-    </script>
+    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous">
-    </script>
+    </script> --}}
 
     {{-- FONTAWESOME --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -29,6 +29,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
     {{-- <script>
@@ -83,7 +84,7 @@
             </div>
             <div class=" justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
@@ -93,7 +94,119 @@
                                 <i class="fa-solid fa-right-from-bracket"></i> {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
-                    </li>
+                    </li> --}}
+                                       {{-- ! ///////////////////////// --}}
+     <li class="nav-item dropdown has-arrow main-drop">
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+           {{-- ! image --}}
+           @if (Auth::user()->image)
+           <span class="user-img">
+               <img class="rounded-circle" src="/storage/{{ Auth::user()->image }}" alt=""
+                   style="width: 40px;height: 40px;">
+               <span class="status online"></span>
+           </span>
+       @else
+           <span class="user-img">
+               <img class="rounded-circle" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}"
+                   alt="" style="width: 40px;height: 40px;">
+               <span class="status online"></span>
+           </span>
+       @endif
+       {{-- ! end image --}}
+          {{-- <span>{{ Auth::user()->username}}</span> --}}
+          {{-- <span>username</span> --}}
+         </a>
+         <div class="dropdown-menu">
+          <a class="dropdown-item disabled" href="#">{{ Auth::user()->name }}</a>
+          <a class="dropdown-item" href="{{route('user.profile')}}"><i
+                  data-feather="user" class="mr-1"></i>
+              Profile</a>
+          <a class="dropdown-item" href="settings.html"><i data-feather="settings" class="mr-1"></i>
+              Settings</a>
+  
+  
+          {{-- <a class="dropdown-item" href="login.html" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();"><i
+                  data-feather="log-out" class="mr-1"></i> Logout</a> --}}
+          <style>
+              .btn-logout {
+                  width: 150px;
+                  height: 50px;
+                  /* min-width: 230px; */
+                  /* padding: 10px 20px; */
+                  /* background: transparent; */
+                  cursor: pointer;
+                  /* background-color: #4fb8a3; */
+                  color: #fff;
+                  /* border: 2px solid #4fb8a3; */
+                  padding: 5px;
+                  border-radius: 6px;
+                  box-sizing: border-box;
+                  font-size: 11px;
+                  font-weight: 600;
+                  text-align: center;
+                  text-decoration: none;
+                  /* margin-left: 5px; */
+                  /* margin-right: 5px; */
+                  transition: background-color .3s, border-color .3s;
+                  box-shadow: 0 2px 10px rgba(54, 54, 54, .2);
+              }
+          </style>
+          {{-- !logout --}}
+          {{-- <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <div class="row justify-content-center">
+                  <div class="col-auto">
+                      <button class="btn btn-logout btn-danger" type="submit">
+                          <i class="fa-solid fa-right-from-bracket"></i>
+                          Logout
+                      </button>
+                  </div>
+              </div> --}}
+          {{-- <button class="btn-logout" type="submit">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  Logout</button> --}}
+          {{-- </form> --}}
+  
+          <a class="dropdown-item" href="login.html" href="{{ route('logout') }}"
+              onclick="event.preventDefault();
+       document.getElementById('logout-form').submit();">
+                {{-- !image logout --}}
+              <i data-feather="log-out" class="mr-1"></i> Logout</a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
+          {{-- !logout --}}
+          {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form> --}}
+         </div>
+                          </li>
+                      <style>
+                                          .btn-upgrade {
+                                              width: 15%;
+                                              height: 50px;
+                                              /* min-width: 230px; */
+                                              /* padding: 10px 20px; */
+                                              background: transparent;
+                                              cursor: pointer;
+                                              background-color: #4fb8a3;
+                                              color: #fff;
+                                              border: 2px solid #4fb8a3;
+                                              padding: 5px;
+                                              border-radius: 6px;
+                                              box-sizing: border-box;
+                                              font-size: 11px;
+                                              font-weight: 600;
+                                              text-align: center;
+                                              text-decoration: none;
+                                              transition: background-color .3s, border-color .3s;
+                                              margin: 15px;
+                                              box-shadow: 0 2px 10px rgba(54, 54, 54, .2);
+                                          }
+                                      </style>
+                      {{--!  /////////////////////////////////// --}}
                 </ul>
             </div>
         </div>
